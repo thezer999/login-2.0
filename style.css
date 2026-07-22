@@ -1,0 +1,342 @@
+/* ==========================================
+   RESET & BASE STYLES
+   ========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f172a;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #2e1065 100%);
+  overflow-x: hidden;
+  position: relative;
+  padding: 20px;
+}
+
+/* ==========================================
+   BACKGROUND BLOBS
+   ========================================== */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  animation: float 10s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+  width: 320px;
+  height: 320px;
+  background: #7c3aed;
+  top: 10%;
+  left: 15%;
+  opacity: 0.6;
+}
+
+.blob-2 {
+  width: 350px;
+  height: 350px;
+  background: #2563eb;
+  bottom: 10%;
+  right: 15%;
+  opacity: 0.5;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  width: 250px;
+  height: 250px;
+  background: #db2777;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.35;
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -40px) scale(1.1); }
+}
+
+/* ==========================================
+   GLASSMORPHISM CARD
+   ========================================== */
+.glass-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  padding: 40px 35px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4),
+              inset 0 0 15px rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.card-header .logo-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.15);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.card-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.card-header p {
+  font-size: 14px;
+  color: #cbd5e1;
+  margin-top: 6px;
+}
+
+/* ==========================================
+   FORM STYLES
+   ========================================== */
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #e2e8f0;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 13px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  font-size: 14px;
+  color: #ffffff;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input-wrapper input::placeholder {
+  color: #94a3b8;
+}
+
+.input-wrapper input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #8b5cf6;
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+}
+
+/* Toggle Password Button */
+.toggle-password {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: #ffffff;
+}
+
+.toggle-password svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Custom Checkbox */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.custom-checkbox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  margin-right: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: #8b5cf6;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background: #8b5cf6;
+  border-color: #8b5cf6;
+}
+
+.checkmark svg {
+  width: 12px;
+  height: 12px;
+  stroke: white;
+  stroke-width: 3;
+  fill: none;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark svg {
+  display: block;
+}
+
+.terms-link {
+  color: #a78bfa;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+  color: #c4b5fd;
+}
+
+/* Submit Button */
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.35);
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(124, 58, 237, 0.5);
+  background: linear-gradient(135deg, #6d28d9 0%, #1d4ed8 100%);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+/* Footer / Sign In link */
+.card-footer {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.card-footer a {
+  color: #a78bfa;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 4px;
+  transition: color 0.2s;
+}
+
+.card-footer a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Notification Alert Toast */
+.notification {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  padding: 16px 24px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  transition: top 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.notification.show {
+  top: 24px;
+}
+
+.notification svg {
+  width: 24px;
+  height: 24px;
+  stroke: #10b981;
+  stroke-width: 2;
+  fill: none;
+}
