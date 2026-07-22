@@ -3,98 +3,575 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Регистрация — ElectroTech Store</title>
-  <!-- Подключение CSS -->
-  <link rel="stylesheet" href="style.css">
+  <title>ElectroMarket — Бытовая техника и электроника</title>
+  <style>
+    /* ==========================================
+       1. СБРОС СТИЛЕЙ И БАЗОВЫЕ НАСТРОЙКИ
+       ========================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: #f4f5f7;
+      color: #1f2937;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ==========================================
+       2. ШАПКА САЙТА (HEADER)
+       ========================================== */
+    header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .top-bar {
+      background-color: #f8fafc;
+      font-size: 13px;
+      color: #64748b;
+      padding: 6px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .top-bar .container {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      color: #7000ff; /* Фирменный фиолетовый Uzum */
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .catalog-btn {
+      background: #eef2ff;
+      color: #7000ff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .catalog-btn:hover {
+      background: #e0e7ff;
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 600px;
+      display: flex;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 16px;
+      border: 2px solid #7000ff;
+      border-radius: 8px 0 0 8px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .search-box button {
+      background: #7000ff;
+      color: white;
+      border: none;
+      padding: 0 20px;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .action-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 12px;
+      color: #4b5563;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      background: none;
+      border: none;
+    }
+
+    .action-item svg {
+      width: 22px;
+      height: 22px;
+      stroke: #1f2937;
+      fill: none;
+      stroke-width: 2;
+      margin-bottom: 2px;
+    }
+
+    .badge {
+      position: absolute;
+      top: -4px;
+      right: 2px;
+      background: #7000ff;
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 10px;
+      padding: 1px 6px;
+    }
+
+    /* ==========================================
+       3. БАННЕР АКЦИЙ
+       ========================================== */
+    .hero-banner {
+      margin: 24px 0;
+      background: linear-gradient(135deg, #7000ff 0%, #4c00b0 100%);
+      border-radius: 16px;
+      padding: 40px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 25px rgba(112, 0, 255, 0.2);
+    }
+
+    .banner-text h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .banner-text p {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .banner-btn {
+      background: #ffc700;
+      color: #000;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* ==========================================
+       4. СЕТКА ТОВАРОВ (PRODUCTS GRID)
+       ========================================== */
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.08);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .product-title {
+      font-size: 14px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+      color: #374151;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .installment-badge {
+      background: #ffeb3b;
+      color: #000;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 10px;
+      width: fit-content;
+    }
+
+    .price-block {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .old-price {
+      font-size: 12px;
+      color: #9ca3af;
+      text-decoration: line-through;
+    }
+
+    .current-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .add-cart-btn {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .add-cart-btn:hover {
+      background: #7000ff;
+      border-color: #7000ff;
+    }
+
+    .add-cart-btn:hover svg {
+      stroke: white;
+    }
+
+    .add-cart-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke: #1f2937;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* ==========================================
+       5. МОДАЛЬНОЕ ОКНО РЕГИСТРАЦИИ (GLASSMORPHISM)
+       ========================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(8px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .glass-card {
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #6b7280;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background: #7000ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Фоновые цветные пятна -->
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-
-  <!-- Всплывающее уведомление -->
-  <div id="toastNotification" class="notification">
-    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-    <div>
-      <strong style="display:block; font-size:14px;">Успешно!</strong>
-      <span style="font-size:12px; color:#e2e8f0;">Вы успешно зарегистрированы в ElectroTech.</span>
+  <!-- Верхняя инфо-строка -->
+  <div class="top-bar">
+    <div class="container">
+      <span>Город доставки: <strong>Ташкент</strong></span>
+      <span>Пункты выдачи • Доставка за 1 день</span>
     </div>
   </div>
 
-  <!-- Карточка регистрации (Glassmorphism) -->
-  <div class="glass-card">
-    <div class="card-header">
-      <span class="logo-tag">ElectroTech</span>
-      <h1>Создать аккаунт</h1>
-      <p>Бытовая техника и электроника</p>
+  <!-- Шапка сайта -->
+  <header>
+    <div class="container header-main">
+      <a href="#" class="logo">⚡ ElectroMarket</a>
+      
+      <button class="catalog-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        Каталог
+      </button>
+
+      <div class="search-box">
+        <input type="text" placeholder="Искать бытовую технику, смартфоны...">
+        <button>Найти</button>
+      </div>
+
+      <div class="header-actions">
+        <button class="action-item" id="openAuthBtn">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          <span id="userAccountText">Войти</span>
+        </button>
+
+        <a href="#" class="action-item">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+          Избранное
+        </a>
+
+        <a href="#" class="action-item">
+          <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          Корзина
+          <span class="badge" id="cartCount">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Главный контент -->
+  <main class="container">
+    
+    <!-- Рекламный баннер -->
+    <div class="hero-banner">
+      <div class="banner-text">
+        <h1>Скидки до -40% на технику!</h1>
+        <p>Распродажа холодильников, телевизоров и смартфонов в Узбекистане</p>
+        <button class="banner-btn">Смотреть акции</button>
+      </div>
     </div>
 
-    <form id="registerForm" novalidate>
-      
-      <!-- Поле: Имя -->
-      <div class="form-group">
-        <label for="userName">Ваше имя</label>
-        <div class="input-wrapper">
-          <input type="text" id="userName" placeholder="Александр Иванов" required>
-        </div>
-      </div>
+    <!-- Витрина товаров -->
+    <h2 class="section-title">Хиты продаж</h2>
+    <div class="products-grid">
 
-      <!-- Поле: Email -->
-      <div class="form-group">
-        <label for="userEmail">Электронная почта</label>
-        <div class="input-wrapper">
-          <input type="email" id="userEmail" placeholder="example@domain.com" required>
+      <!-- Товар 1 -->
+      <div class="product-card">
+        <img src="https://picsum.photos/seed/phone/300/300" alt="Телефон" class="product-img">
+        <div>
+          <div class="installment-badge">240 000 сум/мес</div>
+          <div class="product-title">Смартфон Samsung Galaxy A54 8/256GB Черный</div>
         </div>
-      </div>
-
-      <!-- Поле: Телефон -->
-      <div class="form-group">
-        <label for="userPhone">Номер телефона</label>
-        <div class="input-wrapper">
-          <input type="tel" id="userPhone" placeholder="+998 90 123 45 67" required>
-        </div>
-      </div>
-
-      <!-- Поле: Пароль -->
-      <div class="form-group">
-        <label for="userPassword">Пароль</label>
-        <div class="input-wrapper">
-          <input type="password" id="userPassword" placeholder="••••••••" required>
-          <button type="button" class="toggle-password" id="togglePasswordBtn" title="Показать/скрыть пароль">
-            <!-- SVG Глаз -->
-            <svg id="eyeIcon" viewBox="0 0 24 24">
-              <path class="eye-open" d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-              <circle class="eye-open" cx="12" cy="12" r="3"></circle>
-            </svg>
+        <div class="price-block">
+          <div>
+            <div class="old-price">4 500 000 сум</div>
+            <div class="current-price">3 890 000 сум</div>
+          </div>
+          <button class="add-cart-btn" onclick="addToCart()">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
           </button>
         </div>
       </div>
 
-      <!-- Чекбокс правил -->
-      <div class="checkbox-group">
-        <label class="custom-checkbox">
-          <input type="checkbox" id="agreeTerms" required>
-          <span class="checkmark">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          </span>
-          Я согласен с <a href="#" class="terms-link">правилами магазина</a>
-        </label>
+      <!-- Товар 2 -->
+      <div class="product-card">
+        <img src="https://picsum.photos/seed/tv/300/300" alt="Телевизор" class="product-img">
+        <div>
+          <div class="installment-badge">310 000 сум/мес</div>
+          <div class="product-title">Телевизор LG 43" 4K Smart TV Ultra HD</div>
+        </div>
+        <div class="price-block">
+          <div>
+            <div class="old-price">5 200 000 сум</div>
+            <div class="current-price">4 650 000 сум</div>
+          </div>
+          <button class="add-cart-btn" onclick="addToCart()">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
       </div>
 
-      <!-- Кнопка отправки -->
-      <button type="submit" class="btn-submit">Зарегистрироваться</button>
+      <!-- Товар 3 -->
+      <div class="product-card">
+        <img src="https://picsum.photos/seed/washer/300/300" alt="Стиральная машина" class="product-img">
+        <div>
+          <div class="installment-badge">290 000 сум/мес</div>
+          <div class="product-title">Стиральная машина LG Inverter 7 кг</div>
+        </div>
+        <div class="price-block">
+          <div>
+            <div class="old-price">4 800 000 сум</div>
+            <div class="current-price">4 100 000 сум</div>
+          </div>
+          <button class="add-cart-btn" onclick="addToCart()">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
+      </div>
 
-    </form>
+      <!-- Товар 4 -->
+      <div class="product-card">
+        <img src="https://picsum.photos/seed/vacuum/300/300" alt="Пылесос" class="product-img">
+        <div>
+          <div class="installment-badge">95 000 сум/мес</div>
+          <div class="product-title">Робот-пылесос Xiaomi Robot Vacuum E10</div>
+        </div>
+        <div class="price-block">
+          <div>
+            <div class="old-price">1 900 000 сум</div>
+            <div class="current-price">1 490 000 сум</div>
+          </div>
+          <button class="add-cart-btn" onclick="addToCart()">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
+      </div>
 
-    <!-- Ссылка на вход -->
-    <div class="card-footer">
-      Уже есть аккаунт? <a href="#">Войти</a>
+    </div>
+  </main>
+
+  <!-- Всплывающее окно Входа/Регистрации -->
+  <div class="modal-overlay" id="authModal">
+    <div class="glass-card">
+      <button class="close-modal" id="closeAuthBtn">&times;</button>
+      <h2 style="margin-bottom: 6px;">Регистрация</h2>
+      <p style="font-size: 13px; color: #6b7280; margin-bottom: 20px;">Введите данные для входа в ElectroMarket</p>
+      
+      <form id="modalForm">
+        <div class="form-group">
+          <label>Ваше имя</label>
+          <input type="text" id="modalName" placeholder="Имя" required>
+        </div>
+        <div class="form-group">
+          <label>Номер телефона</label>
+          <input type="tel" placeholder="+998 90 123 45 67" required>
+        </div>
+        <div class="form-group">
+          <label>Пароль</label>
+          <input type="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="submit-btn">Зарегистрироваться</button>
+      </form>
     </div>
   </div>
 
-  <!-- Подключение JS -->
-  <script src="script.js"></script>
+  <!-- Логика JavaScript -->
+  <script>
+    // 1. Управление корзиной
+    let cartItemsCount = 0;
+    function addToCart() {
+      cartItemsCount++;
+      document.getElementById('cartCount').innerText = cartItemsCount;
+    }
+
+    // 2. Открытие / Закрытие Модального окна
+    const authModal = document.getElementById('authModal');
+    const openAuthBtn = document.getElementById('openAuthBtn');
+    const closeAuthBtn = document.getElementById('closeAuthBtn');
+    const modalForm = document.getElementById('modalForm');
+    const userAccountText = document.getElementById('userAccountText');
+
+    openAuthBtn.addEventListener('click', () => {
+      authModal.classList.add('active');
+    });
+
+    closeAuthBtn.addEventListener('click', () => {
+      authModal.classList.remove('active');
+    });
+
+    // 3. Сохранение логина
+    modalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const userName = document.getElementById('modalName').value;
+      userAccountText.innerText = userName; // Меняем "Войти" на имя
+      authModal.classList.remove('active');
+      alert(`Добро пожаловать, ${userName}! Вы успешно вошли.`);
+    });
+  </script>
 </body>
 </html>
